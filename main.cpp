@@ -14,22 +14,19 @@ int main(int argc, char *argv[])
     launchProc.start(program, arguments);
 
     if (!launchProc.waitForStarted()) {
-        qDebug() << "Wait for Start failed. Error: " << launchProc.error();
+        qCritical() << "Wait for Start failed. Error:" << launchProc.error();
         return false;
     }
-    qDebug() << "Started.";
+    qInfo() << "Started.";
 
     if (!launchProc.waitForFinished()) {
-        qDebug() << "Wait for Finish failed. Error: " << launchProc.error();
+        qCritical() << "Wait for Finish failed. Error:" << launchProc.error();
         return false;
     }
-    qDebug() << "Finished.";
+    qInfo() << "Finished.";
 
-    QByteArray procOutput = launchProc.readAllStandardError();
-
-    qDebug() << "State: " << launchProc.state();
-    qDebug() << "Error: " << launchProc.error();
-    qDebug() << "Output: " << procOutput;
+    qDebug() << "Output stdout:" << launchProc.readAllStandardOutput();
+    qDebug() << "Output stderr:" << launchProc.readAllStandardError();
 
     return 0;
 }
